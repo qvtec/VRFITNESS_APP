@@ -1,106 +1,113 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+  <q-layout view="lHh lpR lFf">
+
+    <q-header class="bg-primary">
       <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-        />
+        <q-btn dense flat round icon="menu" @click="left = !left" />
 
         <q-toolbar-title>
-          Quasar App
+          <q-btn flat size="lg" no-caps :to="{ name: 'top' }">
+            <q-avatar square>
+              <img src="~assets/qvtec-logo2.png" />
+            </q-avatar>
+            <div v-if="$q.screen.gt.xs">qvtec App</div>
+          </q-btn>
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
+    <q-drawer show-if-above v-model="left" side="left" content-class="bg-grey-3" bordered>
+      <!-- drawer content -->
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item>
+          <q-item-section avatar>
+            <q-avatar color="secondary" text-color="white" icon="accessibility_new" />
+          </q-item-section>
+          <q-item-section v-if="user">
+            {{ user.name }}
+          </q-item-section>
+        </q-item>
+
+        <q-separator />
+
+        <q-item :to="{ name: 'home' }">
+          <q-item-section avatar>
+            <q-avatar color="secondary" text-color="white" icon="home" />
+          </q-item-section>
+          <q-item-section>
+            {{ $t('pages.menu.home') }}
+          </q-item-section>
+        </q-item>
+
+        <q-item :to="{ name: 'add' }">
+          <q-item-section avatar>
+            <q-avatar color="secondary" text-color="white" icon="add" />
+          </q-item-section>
+          <q-item-section>
+            {{ $t('pages.menu.create') }}
+          </q-item-section>
+        </q-item>
+
+        <q-item :to="{ name: 'list' }">
+          <q-item-section avatar>
+            <q-avatar color="secondary" text-color="white" icon="list" />
+          </q-item-section>
+          <q-item-section>
+            {{ $t('pages.menu.list') }}
+          </q-item-section>
+        </q-item>
+
+        <q-separator />
+
+        <q-item clickable @click.native="logout()" >
+          <q-item-section avatar>
+            <q-avatar color="secondary" text-color="white" icon="exit_to_app" />
+          </q-item-section>
+          <q-item-section>
+            {{ $t('pages.menu.logout') }}
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <q-footer bordered class="bg-white text-primary">
+      <q-toolbar>
+        <q-item class="col text-center">
+          <q-item-section>
+            <q-item-label>@2020 qvtec</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-toolbar>
+    </q-footer>
+
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
-
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
   data () {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
+      left: false
+    }
+  },
+
+  computed: {
+    user () {
+      return this.$store.getters['auth/user']
+    }
+  },
+
+  methods: {
+    logout () {
+      this.$store.dispatch('auth/logout')
+        .then(user => {
+          setTimeout(() => this.$router.replace({ name: 'login' }), 700)
+        })
     }
   }
 }

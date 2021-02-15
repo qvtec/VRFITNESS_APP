@@ -1,6 +1,6 @@
-# Quasar App (quasar-admin)
+# qvtec admin App (quasar-admin)
 
-A Quasar Framework app
+A qvtec admin app
 
 ## Install the dependencies
 ```bash

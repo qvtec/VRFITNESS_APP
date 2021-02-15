@@ -2,8 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import routes from './routes'
+import { LoadingBar } from 'quasar'
 
 Vue.use(VueRouter)
+
+LoadingBar.setDefaults({
+  color: 'accent',
+  size: '7px',
+  position: 'top'
+})
 
 /*
  * If not building with SSR mode, you can
@@ -14,7 +21,7 @@ Vue.use(VueRouter)
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function ({ store }) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -24,6 +31,26 @@ export default function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
+  })
+
+  Router.beforeEach((to, from, next) => {
+    LoadingBar.start()
+
+    // Authenticate
+    if (to.matched.some(route => route.meta.authRequired)) {
+      if (store.getters['auth/isAuthenticated']) {
+        next()
+      } else {
+        LoadingBar.stop()
+        next({ name: 'login' })
+      }
+    } else {
+      next()
+    }
+  })
+
+  Router.afterEach(() => {
+    LoadingBar.stop()
   })
 
   return Router
