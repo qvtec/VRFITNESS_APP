@@ -1,8 +1,8 @@
 {
-  "name": "quasar-admin",
+  "name": "VRFITNESS_APP",
   "version": "0.0.1",
-  "description": "A qvtec admin app",
-  "productName": "qvtec App",
+  "description": "VR Fitness web app",
+  "productName": "VR FITNESS",
   "author": "qvtec <qvtec3@gmail.com>",
   "private": true,
   "scripts": {
@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
-    "axios": "^0.18.1",
+    "axios": ">=0.21.1",
     "core-js": "^3.6.5",
     "quasar": "^1.0.0",
     "vue-i18n": "^8.22.4",

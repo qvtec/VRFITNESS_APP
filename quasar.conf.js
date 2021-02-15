@@ -125,9 +125,9 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'qvtec Admin App',
-        short_name: 'qvtec App',
-        description: 'A qvtec admin app',
+        name: 'VRFITNESS APP',
+        short_name: 'VRFITNESS APP',
+        description: 'A VRFITNESS APP',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',

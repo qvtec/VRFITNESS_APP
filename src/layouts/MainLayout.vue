@@ -10,7 +10,7 @@
             <q-avatar square>
               <img src="~assets/qvtec-logo2.png" />
             </q-avatar>
-            <div v-if="$q.screen.gt.xs">qvtec App</div>
+            <div v-if="$q.screen.gt.xs">VRFITNESS WEB</div>
           </q-btn>
         </q-toolbar-title>
       </q-toolbar>

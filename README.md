@@ -1,6 +1,6 @@
-# qvtec admin App (quasar-admin)
+# qvtec VRFITNESS WEB (VRFITNESS_APP)
 
-A qvtec admin app
+A qvtec VRFITNESS WEB
 
 ## Install the dependencies
 ```bash

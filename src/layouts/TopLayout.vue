@@ -8,7 +8,7 @@
             <q-avatar square>
               <img src="~assets/qvtec-logo2.png" />
             </q-avatar>
-            <div v-if="$q.screen.gt.xs">qvtec App</div>
+            <div v-if="$q.screen.gt.xs">VRFITNESS WEB</div>
           </q-btn>
         </q-toolbar-title>
         <q-separator dark vertical />
@@ -46,10 +46,8 @@
     <q-footer bordered class="bg-white text-primary">
       <q-toolbar inset>
         <q-toolbar-title>
-          <strong>qvtec</strong> App
+          <strong>VRFITNESS</strong> WEB
         </q-toolbar-title>
-        <q-space />
-        <q-item-label caption>v{{ $q.version }}</q-item-label>
       </q-toolbar>
       <q-toolbar>
         <div class="text-center q-gutter-xs">
